@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const sessionSchema = new Schema({
+const huntSchema = new Schema({
   name: String,
   finds: [
     {
@@ -10,6 +10,6 @@ const sessionSchema = new Schema({
   ]
 });
 
-const Session = model("Session", sessionSchema);
+const Hunt = model("Hunts", huntSchema);
 
-module.exports = Session;
+module.exports = Hunt;

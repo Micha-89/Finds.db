@@ -10,9 +10,11 @@ router.get("/", (req, res, next) => {
 
 router.post('/locations', (req, res) => {
   const name = req.body.name;
+  const owner = req.user._id;
+  const hunts = [];
 
   Location.create({
-    name: name
+    name, owner, hunts
   })
   .then(location => {
     res.status(201).json(location);

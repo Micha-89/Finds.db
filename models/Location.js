@@ -2,10 +2,11 @@ const { Schema, model } = require("mongoose");
 
 const locationSchema = new Schema({
   name: String,
-  sessions: [
+  owner: { type: Schema.Types.ObjectId, ref: 'User' },
+  hunts: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Session'
+      ref: 'Hunt'
     }
   ]
 });
