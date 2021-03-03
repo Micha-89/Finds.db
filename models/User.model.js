@@ -2,11 +2,17 @@ const { Schema, model } = require("mongoose");
 
 // TODO: Please make sure you edit the user model to whatever makes sense in this case
 const userSchema = new Schema({
-  username: {
+  email: {
     type: String,
     unique: true
   },
-  password: String
+  password: String,
+  locations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Location'
+    }
+  ]
 });
 
 const User = model("User", userSchema);
