@@ -3,6 +3,22 @@ body {
   padding: 0;
 }
 
-.navbar {
-  background-color: grey;
+.markerButton {
+  width: 50px;
+  height: 54px;
 }
+
+.markerButton:hover{
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.markerButton {
+  background-color: none;
+  border: none;
+}
+
+
+
+
+

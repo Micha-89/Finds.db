@@ -8,23 +8,6 @@ router.get("/", (req, res, next) => {
 // You put the next routes here 👇
 // example: router.use("/auth", authRoutes)
 
-router.post('/locations', (req, res) => {
-  const name = req.body.name;
-  const owner = req.user._id;
-  const hunts = [];
-
-  Location.create({
-    name, owner, hunts
-  })
-  .then(location => {
-    res.status(201).json(location);
-  })
-  .catch(err => {
-    res.json(err);
-  });
-
-});
-
 router.get('/locations', (req, res) => {
 
   Location.find()
@@ -37,7 +20,24 @@ router.get('/locations', (req, res) => {
 
 });
 
-router.get('locations/:id', (req, res) => {
+router.post('/locations', (req, res) => {
+  const owner = req.user._id;
+  const { longitude, latitude } = req.body;
+  Location.create({
+    owner,
+    longitude,
+    latitude,
+    hunts: []
+  })
+  .then(response => {
+    res.json(response);
+  })
+  .catch(err => {
+    res.json(err)
+  })
+})
+
+router.get('/locations/:id', (req, res) => {
 
   Location.findById(req.params.id)
   .populate('sessions')
@@ -53,5 +53,17 @@ router.get('locations/:id', (req, res) => {
   })
 
 })
+
+router.delete('/locations/:id', (req, res, next) => {
+  
+  Location.findByIdAndDelete(req.params.id)
+  .then(() => {
+    res.status(200).json(console.log('location deleted'))
+  })
+  .catch(err => {
+    next(err)
+  })
+
+});
 
 module.exports = router;

@@ -26,7 +26,7 @@ class App extends React.Component {
         <Route
           exact path='/locations'
           render={props => {
-            if (this.state.user) return <Locations {...props}/>
+            if (this.state.user) return <Locations user={this.state.user} {...props}/>
             else return <Redirect to='/' />
           }}
         />
