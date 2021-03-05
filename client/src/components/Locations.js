@@ -40,7 +40,7 @@ export default function Locations(props) {
       latitude: newMarkerLocation.latitude,
       hunts: []
     })
-    .then(response => {
+    .then(() => {
       setNewMarkerLocation({
         latitude: 0,
         longitude: 0
@@ -68,7 +68,6 @@ export default function Locations(props) {
     .catch(err => {
       console.log(err)
     })
-
   }
 
   return (
@@ -107,10 +106,12 @@ export default function Locations(props) {
           <Popup 
           latitude={newMarkerLocation.latitude} 
           longitude={newMarkerLocation.longitude}
+          closeButton={false}
           >
-            <form onSubmit={addLocation} style={{margin:"12px"}}>
+            <form className="addLocationPopUpForm" onSubmit={addLocation} style={{margin:"12px"}}>
               <button type="submit">Add Location</button>
             </form>
+            <button onClick={() =>setNewMarkerLocation({latitude: 0,longitude: 0})}>Close</button>
           </Popup>
         ) : <></> }
 
@@ -118,15 +119,17 @@ export default function Locations(props) {
           <Popup 
           latitude={selectedMarker.latitude} 
           longitude={selectedMarker.longitude}
+          closeButton={false}
           >
             <div style={{margin:"12px"}}>
               <p>Sessions: {selectedMarker.hunts.length}</p>
               <button>Add session</button>
               {(selectedMarker.hunts.length > 0) ? <button>Sessions</button> : <></>}
               {(selectedMarker.hunts.length === 0) ? 
-              <form onSubmit={deleteLocation}>
+              <form className="locationPopUpForm" onSubmit={deleteLocation}>
                 <button type="submit">Delete location</button>
               </form> : <></>}
+              <button onClick={() =>setSelectedMarker(null)}>Close</button>
             </div>
           </Popup>
         ) : <></> }
