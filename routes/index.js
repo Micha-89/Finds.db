@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Location = require('../models/Location')
+const Hunt = require('../models/Hunt')
 
 router.get("/", (req, res, next) => {
   res.json("All good in here");
@@ -40,7 +41,7 @@ router.post('/locations', (req, res) => {
 router.get('/locations/:id', (req, res) => {
 
   Location.findById(req.params.id)
-  .populate('sessions')
+  .populate('hunts')
   .then(location => {
     if (!location) {
       res.status(404).json(location);
@@ -51,6 +52,18 @@ router.get('/locations/:id', (req, res) => {
   .catch(err => {
     res.status(200).json(err)
   })
+
+})
+
+router.put('/locations/:id', (req, res) => {
+  const { hunt } = req.body
+  Location.findByIdAndUpdate(req.params.id, {$push: { hunts: hunt } })
+  .then(() => {
+    res.json({ message: `Location with ${req.params.id} is updated successfully.` });
+  })
+  .catch(error => {
+    res.json(error);
+  });
 
 })
 
@@ -65,5 +78,20 @@ router.delete('/locations/:id', (req, res, next) => {
   })
 
 });
+
+router.post('/hunts', (req, res) => {
+  const { date, location } = req.body;
+  Hunt.create({
+    date,
+    location,
+    finds: []
+  })
+  .then(response => {
+    res.json(response);
+  })
+  .catch(err => {
+    res.json(err)
+  })
+})
 
 module.exports = router;

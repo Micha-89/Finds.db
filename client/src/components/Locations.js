@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Locations(props) {
@@ -10,6 +11,9 @@ export default function Locations(props) {
       axios.get('/api/locations')
       .then(response => {
         setLocations(response.data)
+      })
+      .catch(err => {
+        console.log(err)
       })
     }
 
@@ -49,7 +53,12 @@ export default function Locations(props) {
       .then(response => {
         setLocations(response.data)
       })
-
+      .catch(err => {
+        console.log(err)
+      })
+    })
+    .catch(err => {
+      console.log(err)
     })
   }
 
@@ -123,8 +132,7 @@ export default function Locations(props) {
           >
             <div style={{margin:"12px"}}>
               <p>Sessions: {selectedMarker.hunts.length}</p>
-              <button>Add session</button>
-              {(selectedMarker.hunts.length > 0) ? <button>Sessions</button> : <></>}
+              <Link to={`/locations/${selectedMarker._id}`}>Sessions</Link>
               {(selectedMarker.hunts.length === 0) ? 
               <form className="locationPopUpForm" onSubmit={deleteLocation}>
                 <button type="submit">Delete location</button>

@@ -7,13 +7,7 @@ const userSchema = new Schema(
       type: String,
       unique: true
     },
-    password: String,
-    locations: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Location'
-      }
-    ]
+    password: String
   },
   {
     timestamps: true

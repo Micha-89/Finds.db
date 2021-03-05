@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import { Route, Redirect } from 'react-router-dom';
-import Locations from './components/Locations'
+import Locations from './components/Locations';
+import LocationDetails from './components/LocationDetails'
 import Navbar from './components/Navbar';
 import Signup from './components/Signup';
 import Login from './components/Login';
@@ -30,6 +31,15 @@ class App extends React.Component {
             else return <Redirect to='/' />
           }}
         />
+
+        <Route
+          exact path='/locations/:id'
+          render={props => {
+            if (this.state.user) return <LocationDetails {...props}/>
+            else return <Redirect to='/' />
+          }}
+        />
+
         <Route
           exact
           path='/signup'
