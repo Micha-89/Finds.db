@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Location = require('../models/Location')
 const Hunt = require('../models/Hunt')
+const Find = require('../models/Find')
 
 router.get("/", (req, res, next) => {
   res.json("All good in here");
@@ -57,14 +58,13 @@ router.get('/locations/:id', (req, res) => {
 
 router.put('/locations/:id', (req, res) => {
   const { hunt } = req.body
-  Location.findByIdAndUpdate(req.params.id, {$push: { hunts: hunt } })
+  Location.findByIdAndUpdate(req.params.id, {$push: { hunts: { $each: [hunt], $position: 0 } } })
   .then(() => {
     res.json({ message: `Location with ${req.params.id} is updated successfully.` });
   })
   .catch(error => {
     res.json(error);
   });
-
 })
 
 router.delete('/locations/:id', (req, res, next) => {
@@ -91,6 +91,51 @@ router.post('/hunts', (req, res) => {
   })
   .catch(err => {
     res.json(err)
+  })
+})
+
+router.get('/hunts/:id', (req, res) => {
+
+  Hunt.findById(req.params.id)
+  .populate('finds')
+  .then(location => {
+    if (!location) {
+      res.status(404).json(location);
+    } else {
+      res.json(location)
+    }
+  })
+  .catch(err => {
+    res.status(200).json(err)
+  })
+
+})
+
+router.put('/hunts/:id', (req, res) => {
+  const { find } = req.body
+  Hunt.findByIdAndUpdate(req.params.id, {$push: { finds: { $each: [find], $position: 0 } } })
+  .then(() => {
+    res.json({ message: `Hunt/session with ${req.params.id} is updated successfully.` });
+  })
+  .catch(error => {
+    res.json(error);
+  });
+})
+
+router.post('/finds', (req, res) => {
+  const { objectType, age, description, location, hunt } = req.body;
+  Find.create({
+    objectType,
+    age,
+    description, 
+    location, 
+    hunt
+  })
+  .then(response => {
+    res.json(response)
+  })
+  .catch(err => {
+    res.jason(err)
   })
 })
 

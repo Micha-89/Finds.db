@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Allfindsthislocation from '../components/Allfindsthislocation'
+import Findsspecificsession from '../components/Findsspecificsession'
 
 export default class LocationDetails extends Component {
 
   state = {
     date : '',
-    hunts: []
+    hunts: [],
+    selectedHunt: 'all'
   }
 
   componentDidMount() {
@@ -55,32 +58,33 @@ export default class LocationDetails extends Component {
     })
   }
 
+  changeSelectedHuntToAll = () => {
+    this.setState({selectedHunt : 'all'})
+  }
+
+  changeSelectedHuntToThis = (index) => {
+    this.setState((prevState) => ({
+      selectedHunt : prevState.hunts[index]
+    }))
+  } 
+
   render() {
     return (
       <div>
         <h1>Location Id: {this.props.match.params.id}</h1>
-        
-        <ul>
-          <li>
-            <form onSubmit={this.handleSubmit}>
-              <input onChange={this.handleChangeDate} type="datetime-local" name="" id=""/>
-              <button type="submit">Add Session</button>
-            </form>
-          </li>
-          {this.state.hunts.length > 0 ? this.state.hunts.map(session => (<li key={session._id}>Day: {session.date.split('T')[0].split('-').reverse().join('-')} Time: {session.date.split('T')[1]}</li>)) : <></>}
-        </ul>
-        <ul>
-          <li>Find</li>
-          <li>Find</li>
-          <li>Find</li>
-          <li>Find</li>
-          <li>Find</li>
-          <li>Find</li>
-          <li>Find</li>
-          <li>Find</li>
-          <li>Find</li>
-          <li>Find</li>
-        </ul>
+        <div style={{display:"flex", gap:"40px"}}>
+          <div style={{display:"flex", flexDirection:"column", gap:"20px"}}>
+            <div>
+              <form onSubmit={this.handleSubmit}>
+                <input onChange={this.handleChangeDate} type="datetime-local" name="" id=""/>
+                <button type="submit">Add Session</button>
+              </form>
+            </div>
+            {this.state.hunts.length > 0 ? <div onClick={this.changeSelectedHuntToAll}>All</div> : <></>}
+            {this.state.hunts.length > 0 ? this.state.hunts.map((session, index) => (<div key={session._id} onClick={this.changeSelectedHuntToThis.bind(this, index)}>Day: {session.date.split('T')[0].split('-').reverse().join('-')} Time: {session.date.split('T')[1]} <button>delete</button></div>)) : <p>No sessions yet</p>}
+          </div>
+          {this.state.selectedHunt === 'all' ? <Allfindsthislocation></Allfindsthislocation> : <Findsspecificsession selectedHunt={this.state.selectedHunt} location={this.props.match.params.id}></Findsspecificsession>}
+        </div>
       </div>
     )
   }
