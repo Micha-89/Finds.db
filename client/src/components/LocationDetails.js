@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Allfindsthislocation from '../components/Allfindsthislocation'
-import Findsspecificsession from '../components/Findsspecificsession'
+import Allfindsthislocation from '../components/Allfindsthislocation';
+import Findsspecificsession from '../components/Findsspecificsession';
+import { Route, Link, Switch } from 'react-router-dom';
 
 export default class LocationDetails extends Component {
 
@@ -62,12 +63,6 @@ export default class LocationDetails extends Component {
     this.setState({selectedHunt : 'all'})
   }
 
-  changeSelectedHuntToThis = (index) => {
-    this.setState((prevState) => ({
-      selectedHunt : prevState.hunts[index]
-    }))
-  } 
-
   render() {
     return (
       <div>
@@ -80,12 +75,17 @@ export default class LocationDetails extends Component {
                 <button type="submit">Add Session</button>
               </form>
             </div>
-            {this.state.hunts.length > 0 ? <div onClick={this.changeSelectedHuntToAll}>All</div> : <></>}
-            {this.state.hunts.length > 0 ? this.state.hunts.map((session, index) => (<div key={session._id} onClick={this.changeSelectedHuntToThis.bind(this, index)}>Day: {session.date.split('T')[0].split('-').reverse().join('-')} Time: {session.date.split('T')[1]} <button>delete</button></div>)) : <p>No sessions yet</p>}
+            {this.state.hunts.length > 0 ? <Link to={`/locations/${this.props.match.params.id}/allfinds`}>All</Link> : <></>}
+            {this.state.hunts.length > 0 ? this.state.hunts.map(session => (<Link to={`/locations/hunts/${session._id}`} key={session._id}>Day: {session.date.split('T')[0].split('-').reverse().join('-')} Time: {session.date.split('T')[1]} <button>delete</button></Link>)) : <p>No sessions yet</p>}
           </div>
-          {this.state.selectedHunt === 'all' ? <Allfindsthislocation></Allfindsthislocation> : <Findsspecificsession selectedHunt={this.state.selectedHunt} location={this.props.match.params.id}></Findsspecificsession>}
+          <Switch>
+            <Route exact path="/locations/:id/allfinds" components={Allfindsthislocation}/>
+            <Route exact path="/locations/:id/hunts/:id" component={Findsspecificsession}/>
+         </Switch>
         </div>
       </div>
     )
   }
 }
+
+

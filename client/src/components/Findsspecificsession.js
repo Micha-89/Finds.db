@@ -6,28 +6,14 @@ export default class Findsspecificsession extends Component {
     objectType: '',
     age: 'uncertain',
     description: '',
-    finds: []
+    hunt: {}
   }
 
   componentDidMount = () => {
-    axios.get(`/api/hunts/${this.props.selectedHunt._id}`)
+    axios.get(`/api/hunts/${this.props.match.params.id}`)
     .then(response => {
       this.setState({
-        finds: response.data.finds
-      })
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
-
-  
-
-  componentDidCatch = () => {
-    axios.get(`/api/hunts/${this.props.selectedHunt._id}`)
-    .then(response => {
-      this.setState({
-        finds: response.data.finds
+        hunt: response.data
       })
     })
     .catch(err => {
@@ -49,16 +35,16 @@ export default class Findsspecificsession extends Component {
       objectType: this.state.objectType,
       description: this.state.description,
       age: this.state.age,
-      location: this.props.location,
-      hunt: this.props.selectedHunt._id
+      location: this.state.hunt.location,
+      hunt: this.props.match.params.id
     })
     .then(response => {
-      axios.put(`/api/hunts/${this.props.selectedHunt._id}`, { find: response.data._id})
+      axios.put(`/api/hunts/${this.props.match.params.id}`, { find: response.data._id})
       .then(() => {
-        axios.get(`/api/hunts/${this.props.selectedHunt._id}`)
+        axios.get(`/api/hunts/${this.props.match.params.id}`)
         .then(response => {
           this.setState({
-            finds: response.data.finds,
+            hunt: response.data,
             objectType: '',
             age: 'uncertain',
             description: ''
@@ -96,7 +82,7 @@ export default class Findsspecificsession extends Component {
           <textarea name="description" id="description" cols="30" rows="10" value={this.state.description} onChange={this.handleChange}></textarea>
           <button type="submit">Add Find</button>
         </form>
-        {this.state.finds.length > 0 ? this.state.finds.map(find => (<p>{find.objectType}</p>)) : <p>no finds</p>}
+        {this.state.hunt.finds.length > 0 ? this.state.hunt.finds.map(find => (<p>{find.objectType}</p>)) : <p>no finds</p>}
       </div>
     )
   }
