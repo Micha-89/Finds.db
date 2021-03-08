@@ -52,12 +52,30 @@ export default class Findsspecificsession extends Component {
             age: 'uncertain',
             description: ''
           })
+          this.props.onReload()
         })
         .catch(err => {
           console.log(err)
         })
       })
     })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  removeSession = () => {
+    axios.delete(`/api/hunts/${this.props.match.params.sessionId}`)
+    .then(
+      axios.put(`/api/locations/removeHunt/${this.props.match.params.id}`, { hunt: this.props.match.params.sessionId})
+      .then(() => {
+        this.props.onReload()
+        this.props.history.push(`/locations/${this.props.match.params.id}/allfinds`)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    )
     .catch(err => {
       console.log(err)
     })
@@ -85,7 +103,7 @@ export default class Findsspecificsession extends Component {
           <textarea name="description" id="description" cols="30" rows="10" value={this.state.description} onChange={this.handleChange}></textarea>
           <button type="submit">Add Find</button>
         </form>
-        {(this.state.finds.length > 0) ? this.state.finds.map(find => (<p key={find._id}>{find.objectType}</p>)) : <></>}
+        {(this.state.finds.length > 0) ? this.state.finds.map(find => (<p key={find._id}>{find.objectType}</p>)) : <button onClick={() => {this.removeSession()}}>Delete session</button>}
       </div>
     )
   }

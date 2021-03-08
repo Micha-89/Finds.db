@@ -29,6 +29,24 @@ export default class LocationDetails extends Component {
     })
   }
 
+  handleChildChange = () => {
+    axios.get(`/api/locations/${this.props.match.params.id}`)
+    .then(response => {
+      this.setState({
+        hunts: response.data.hunts
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  handleChangeDate = e => {
+    this.setState({
+      date: e.target.value
+    })
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     axios.post('/api/hunts', {
@@ -70,12 +88,12 @@ export default class LocationDetails extends Component {
                 <button type="submit">Add Session</button>
               </form>
             </div>
-            {this.state.hunts.length > 0 ? <Link to={`${this.props.match.url}/allfinds`}>All</Link> : <></>}
-            {this.state.hunts.length > 0 ? this.state.hunts.map(session => (<Link to={`${this.props.match.url}/${session._id}`} key={session._id}>Day: {session.date.split('T')[0].split('-').reverse().join('-')} Time: {session.date.split('T')[1]} <button>delete</button></Link>)) : <p>No sessions yet</p>}
+            <Link to={`${this.props.match.url}/allfinds`}>All finds in this location</Link>
+            {this.state.hunts.length > 0 ? this.state.hunts.map(session => (<Link to={`${this.props.match.url}/${session._id}`} key={session._id}>Day: {session.date.split('T')[0].split('-').reverse().join('-')} Time: {session.date.split('T')[1]}</Link>)) : <p>No sessions yet</p>}
           </div>
           <Switch>
             <Route path={`${this.props.match.path}/allfinds`} render={(props) => (<Allfindsthislocation {...props}/>)}/>
-            <Route path={`${this.props.match.path}/:sessionId`} render={(props) => (<Findsspecificsession  key={props.match.params.sessionId} {...props}/>)} />
+            <Route path={`${this.props.match.path}/:sessionId`} render={(props) => (<Findsspecificsession  key={props.match.params.sessionId} {...props} onReload={() => {this.handleChildChange()}}/>)} />
           </Switch>
         </div>
       </div>

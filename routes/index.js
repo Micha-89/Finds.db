@@ -67,6 +67,17 @@ router.put('/locations/:id', (req, res) => {
   });
 })
 
+router.put('/locations/removeHunt/:id', (req, res) => {
+  const { hunt } = req.body
+  Location.findByIdAndUpdate(req.params.id, {$pull: { hunts: hunt } })
+  .then(() => {
+    res.json({ message: `Location with ${req.params.id} is updated successfully.` });
+  })
+  .catch(error => {
+    res.json(error);
+  });
+})
+
 router.delete('/locations/:id', (req, res, next) => {
   
   Location.findByIdAndDelete(req.params.id)
@@ -121,6 +132,18 @@ router.put('/hunts/:id', (req, res) => {
     res.json(error);
   });
 })
+
+router.delete('/hunts/:id', (req, res, next) => {
+  
+  Hunt.findByIdAndDelete(req.params.id)
+  .then(() => {
+    res.status(200).json(console.log('hunt deleted'))
+  })
+  .catch(err => {
+    next(err)
+  })
+
+});
 
 router.post('/finds', (req, res) => {
   const { objectType, age, description, location, hunt } = req.body;
