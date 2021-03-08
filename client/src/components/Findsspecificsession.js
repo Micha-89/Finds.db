@@ -6,6 +6,9 @@ export default class Findsspecificsession extends Component {
     objectType: '',
     age: 'uncertain',
     description: '',
+    imageUrl: '',
+    fileInputValue: '',
+    imageUploaded: false,
     hunt: {},
     finds: []
   }
@@ -31,6 +34,21 @@ export default class Findsspecificsession extends Component {
     })
   }
 
+  handleFileUpload = (e) => {
+    const uploadData = new FormData();
+    uploadData.append('imageUrl', e.target.files[0]);
+    axios.post('/api/upload', uploadData)
+    .then(response => 
+      this.setState({
+        imageUrl: response.data.secure_url,
+        imageUploaded: true
+      })
+    )
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     axios.post('/api/finds', {
@@ -38,7 +56,8 @@ export default class Findsspecificsession extends Component {
       description: this.state.description,
       age: this.state.age,
       location: this.state.hunt.location,
-      hunt: this.props.match.params.sessionId
+      hunt: this.props.match.params.sessionId,
+      imageUrl: this.state.imageUrl
     })
     .then(response => {
       axios.put(`/api/hunts/${this.props.match.params.sessionId}`, { find: response.data._id})
@@ -50,7 +69,9 @@ export default class Findsspecificsession extends Component {
             finds: response.data.finds,
             objectType: '',
             age: 'uncertain',
-            description: ''
+            description: '',
+            imageUrl: '',
+            imageUploaded: false
           })
           this.props.onReload()
         })
@@ -101,6 +122,9 @@ export default class Findsspecificsession extends Component {
           </select>
           <label htmlFor="description">Description</label>
           <textarea name="description" id="description" cols="30" rows="10" value={this.state.description} onChange={this.handleChange}></textarea>
+          <label style={{backgroundColor:"grey", marginTop:"5px"}} htmlFor="imageUrl">Upload image</label>
+          <input style={{display:"none"}} type="file"  id="imageUrl" name="imageUrl" value={this.state.fileInputValue} onChange={e => this.handleFileUpload(e)}/>
+          {this.state.imageUploaded ? <p>image uploaded</p> : <p>no image uploaded</p>}
           <button type="submit">Add Find</button>
         </form>
         {(this.state.finds.length > 0) ? this.state.finds.map(find => (<p key={find._id}>{find.objectType}</p>)) : <button onClick={() => {this.removeSession()}}>Delete session</button>}

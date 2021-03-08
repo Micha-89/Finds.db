@@ -1,7 +1,8 @@
 const router = require("express").Router();
-const Location = require('../models/Location')
-const Hunt = require('../models/Hunt')
-const Find = require('../models/Find')
+const Location = require('../models/Location');
+const Hunt = require('../models/Hunt');
+const Find = require('../models/Find');
+const uploader = require('../config/cloudinary-setup.config')
 
 router.get("/", (req, res, next) => {
   res.json("All good in here");
@@ -146,13 +147,14 @@ router.delete('/hunts/:id', (req, res, next) => {
 });
 
 router.post('/finds', (req, res) => {
-  const { objectType, age, description, location, hunt } = req.body;
+  const { objectType, age, description, location, hunt, imageUrl } = req.body;
   Find.create({
     objectType,
     age,
     description, 
     location, 
-    hunt
+    hunt,
+    imageUrl
   })
   .then(response => {
     res.json(response)
@@ -161,5 +163,13 @@ router.post('/finds', (req, res) => {
     res.jason(err)
   })
 })
+
+router.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
+  if (!req.file) {
+    next(new Error('No file uploaded!'));
+    return;
+  }
+  res.json({ secure_url: req.file.path });
+});
 
 module.exports = router;

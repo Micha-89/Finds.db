@@ -15,7 +15,8 @@ const findSchema = new Schema({
   hunt: {
     type: Schema.Types.ObjectId,
     ref: 'Hunt'
-  }
+  },
+  imageUrl: String
 });
 
 const Find = model("Find", findSchema);
