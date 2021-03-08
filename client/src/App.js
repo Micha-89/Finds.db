@@ -6,6 +6,7 @@ import LocationDetails from './components/LocationDetails'
 import Navbar from './components/Navbar';
 import Signup from './components/Signup';
 import Login from './components/Login';
+import Finds from './components/Finds'
 
 class App extends React.Component {
 
@@ -23,6 +24,14 @@ class App extends React.Component {
     return (
       <div className='App' >
         <Navbar user={this.state.user} setUser={this.setUser} />
+
+        <Route
+          exact path='/finds'
+          render={props => {
+            if (this.state.user) return <Finds user={this.state.user} {...props}/>
+            else return <Redirect to='/' />
+          }}
+        />
 
         <Route
           exact path='/locations'

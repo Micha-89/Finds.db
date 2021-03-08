@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { Pie } from 'react-chartjs-2';
 
 export default class Findsspecificsession extends Component {
   state = {
@@ -104,30 +106,79 @@ export default class Findsspecificsession extends Component {
 
   render() {
     return (
-      <div>
+
+      <div style={{display:"flex"}}>
+        <div>
         <form style={{display:"flex", flexDirection:"column"}} onSubmit={this.handleSubmit}>
-          <label htmlFor="objectType">Type</label>
-          <input type="text" id="objectType" name="objectType" value={this.state.objectType} onChange={this.handleChange}/>
-          <label htmlFor="age">Age</label>
-          <select name="age" id="age" value={this.state.age} onChange={this.handleChange}>
-            <option value="uncertain">uncertain</option>
-            <option value="stone age">stone age</option>
-            <option value="bronze age">bronze age</option>
-            <option value="iron age">iron age</option>
-            <option value="roman">roman</option>
-            <option value="early medieval">early medieval</option>
-            <option value="medieval">medieval</option>
-            <option value="post medieval">post medieval</option>
-            <option value="modern">modern</option>
-          </select>
-          <label htmlFor="description">Description</label>
-          <textarea name="description" id="description" cols="30" rows="10" value={this.state.description} onChange={this.handleChange}></textarea>
-          <label style={{backgroundColor:"grey", marginTop:"5px"}} htmlFor="imageUrl">Upload image</label>
-          <input style={{display:"none"}} type="file"  id="imageUrl" name="imageUrl" value={this.state.fileInputValue} onChange={e => this.handleFileUpload(e)}/>
-          {this.state.imageUploaded ? <p>image uploaded</p> : <p>no image uploaded</p>}
-          <button type="submit">Add Find</button>
-        </form>
-        {(this.state.finds.length > 0) ? this.state.finds.map(find => (<p key={find._id}>{find.objectType}</p>)) : <button onClick={() => {this.removeSession()}}>Delete session</button>}
+            <label htmlFor="objectType">Type</label>
+            <input type="text" id="objectType" name="objectType" value={this.state.objectType} onChange={this.handleChange}/>
+            <label htmlFor="age">Age</label>
+            <select name="age" id="age" value={this.state.age} onChange={this.handleChange}>
+              <option value="uncertain">uncertain</option>
+              <option value="stone age">stone age</option>
+              <option value="bronze age">bronze age</option>
+              <option value="iron age">iron age</option>
+              <option value="roman">roman</option>
+              <option value="early medieval">early medieval</option>
+              <option value="medieval">medieval</option>
+              <option value="post medieval">post medieval</option>
+              <option value="modern">modern</option>
+            </select>
+            <label htmlFor="description">Description</label>
+            <textarea name="description" id="description" cols="30" rows="10" value={this.state.description} onChange={this.handleChange}></textarea>
+            <label style={{backgroundColor:"grey", marginTop:"5px"}} htmlFor="imageUrl">Upload image</label>
+            <input style={{display:"none"}} type="file"  id="imageUrl" name="imageUrl" value={this.state.fileInputValue} onChange={e => this.handleFileUpload(e)}/>
+            {this.state.imageUploaded ? <p>image uploaded</p> : <p>no image uploaded</p>}
+            <button type="submit">Add Find</button>
+          </form>
+
+          {(this.state.finds.length > 0) ? 
+
+            <div>
+              {this.state.finds.map(find => (
+              <Link key={find._id}>
+              <p>{find.objectType}</p>
+              <img style={{width:"200px"}} src={find.imageUrl} alt="find"></img>
+              </Link>)) }
+            </div>
+
+          : <button onClick={() => {this.removeSession()}}>Delete session</button>}
+
+        </div>
+
+        <div>
+        
+        {(this.state.finds.length > 0) ? 
+          <div>
+          <Pie 
+                data={{
+                  labels: ['uncertain', 'stone age', 'bronze age', 'iron age', 'roman', 'early medieval', 'medieval', 'post medieval', 'modern'],
+                  datasets: [
+                    {
+                      label: 'Points',
+                      backgroundColor: ['#f1c40f', '#e67e22', '#16a085', '#2980b9', '#78c4d4', '#f5c0c0', '#7868e6', '#f14668', '#c0e218'],
+                      data: [
+                        this.state.finds.filter(find => find.age === "uncertain").length,
+                        this.state.finds.filter(find => find.age === "stone age").length,
+                        this.state.finds.filter(find => find.age === "bronze age").length,
+                        this.state.finds.filter(find => find.age === "iron age").length,
+                        this.state.finds.filter(find => find.age === "roman").length,
+                        this.state.finds.filter(find => find.age === "early medieval").length,
+                        this.state.finds.filter(find => find.age === "medieval").length,
+                        this.state.finds.filter(find => find.age === "post medieval").length,
+                        this.state.finds.filter(find => find.age === "modern").length
+                        ]
+                    }
+                  ]
+                }}
+      
+                height={400} 
+                width={600}
+              />
+          </div>
+          : <></>}
+
+        </div>
       </div>
     )
   }

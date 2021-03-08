@@ -164,6 +164,19 @@ router.post('/finds', (req, res) => {
   })
 })
 
+router.get('/finds', (req, res) => {
+
+  Find.find()
+  .populate('location')
+  .then(allFinds => {
+    res.status(200).json(allFinds);
+  })
+  .catch(err => {
+    res.json(err);
+  });
+
+});
+
 router.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
   if (!req.file) {
     next(new Error('No file uploaded!'));

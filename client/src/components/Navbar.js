@@ -15,6 +15,10 @@ const Navbar = props => {
       {props.user ? (
         <>
           <div>
+            <Link to='/finds'>Finds</Link>
+          </div>
+
+          <div>
             <Link to='/locations'>Locations</Link>
           </div>
           <div>

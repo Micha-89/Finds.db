@@ -8,14 +8,19 @@ export default class LocationDetails extends Component {
 
   state = {
     date : '',
-    hunts: []
+    hunts: [],
+    longitude: '',
+    latitude: ''
   }
 
   componentDidMount() {
+    this.props.history.push(`/locations/${this.props.match.params.id}/allfinds`)
     axios.get(`/api/locations/${this.props.match.params.id}`)
     .then(response => {
       this.setState({
-        hunts: response.data.hunts
+        hunts: response.data.hunts,
+        longitude: response.data.longitude,
+        latitude: response.data.latitude
       })
     })
     .catch(err => {
@@ -79,7 +84,7 @@ export default class LocationDetails extends Component {
   render() {
     return (
       <div>
-        <h1>Location Id: {this.props.match.params.id}</h1>
+        <h2>Longitude: {this.state.longitude} Latitude:{this.state.latitude}</h2>
         <div style={{display:"flex", gap:"40px"}}>
           <div style={{display:"flex", flexDirection:"column", gap:"20px"}}>
             <div>
