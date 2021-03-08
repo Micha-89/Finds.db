@@ -33,7 +33,7 @@ class App extends React.Component {
         />
 
         <Route
-          exact path='/locations/:id'
+          path='/locations/:id'
           render={props => {
             if (this.state.user) return <LocationDetails {...props}/>
             else return <Redirect to='/' />

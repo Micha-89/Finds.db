@@ -8,8 +8,7 @@ export default class LocationDetails extends Component {
 
   state = {
     date : '',
-    hunts: [],
-    selectedHunt: 'all'
+    hunts: []
   }
 
   componentDidMount() {
@@ -59,10 +58,6 @@ export default class LocationDetails extends Component {
     })
   }
 
-  changeSelectedHuntToAll = () => {
-    this.setState({selectedHunt : 'all'})
-  }
-
   render() {
     return (
       <div>
@@ -75,17 +70,19 @@ export default class LocationDetails extends Component {
                 <button type="submit">Add Session</button>
               </form>
             </div>
-            {this.state.hunts.length > 0 ? <Link to={`/locations/${this.props.match.params.id}/allfinds`}>All</Link> : <></>}
-            {this.state.hunts.length > 0 ? this.state.hunts.map(session => (<Link to={`/locations/hunts/${session._id}`} key={session._id}>Day: {session.date.split('T')[0].split('-').reverse().join('-')} Time: {session.date.split('T')[1]} <button>delete</button></Link>)) : <p>No sessions yet</p>}
+            {this.state.hunts.length > 0 ? <Link to={`${this.props.match.url}/allfinds`}>All</Link> : <></>}
+            {this.state.hunts.length > 0 ? this.state.hunts.map(session => (<Link to={`${this.props.match.url}/${session._id}`} key={session._id}>Day: {session.date.split('T')[0].split('-').reverse().join('-')} Time: {session.date.split('T')[1]} <button>delete</button></Link>)) : <p>No sessions yet</p>}
           </div>
           <Switch>
-            <Route exact path="/locations/:id/allfinds" components={Allfindsthislocation}/>
-            <Route exact path="/locations/:id/hunts/:id" component={Findsspecificsession}/>
-         </Switch>
+            <Route path={`${this.props.match.path}/allfinds`} render={(props) => (<Allfindsthislocation {...props}/>)}/>
+            <Route path={`${this.props.match.path}/:sessionId`} render={(props) => (<Findsspecificsession  key={props.match.params.sessionId} {...props}/>)} />
+          </Switch>
         </div>
       </div>
     )
   }
 }
+
+
 
 

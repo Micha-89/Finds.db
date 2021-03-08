@@ -6,14 +6,16 @@ export default class Findsspecificsession extends Component {
     objectType: '',
     age: 'uncertain',
     description: '',
-    hunt: {}
+    hunt: {},
+    finds: []
   }
 
   componentDidMount = () => {
-    axios.get(`/api/hunts/${this.props.match.params.id}`)
+    axios.get(`/api/hunts/${this.props.match.params.sessionId}`)
     .then(response => {
       this.setState({
-        hunt: response.data
+        hunt: response.data,
+        finds: response.data.finds
       })
     })
     .catch(err => {
@@ -36,15 +38,16 @@ export default class Findsspecificsession extends Component {
       description: this.state.description,
       age: this.state.age,
       location: this.state.hunt.location,
-      hunt: this.props.match.params.id
+      hunt: this.props.match.params.sessionId
     })
     .then(response => {
-      axios.put(`/api/hunts/${this.props.match.params.id}`, { find: response.data._id})
+      axios.put(`/api/hunts/${this.props.match.params.sessionId}`, { find: response.data._id})
       .then(() => {
-        axios.get(`/api/hunts/${this.props.match.params.id}`)
+        axios.get(`/api/hunts/${this.props.match.params.sessionId}`)
         .then(response => {
           this.setState({
             hunt: response.data,
+            finds: response.data.finds,
             objectType: '',
             age: 'uncertain',
             description: ''
@@ -82,7 +85,7 @@ export default class Findsspecificsession extends Component {
           <textarea name="description" id="description" cols="30" rows="10" value={this.state.description} onChange={this.handleChange}></textarea>
           <button type="submit">Add Find</button>
         </form>
-        {this.state.hunt.finds.length > 0 ? this.state.hunt.finds.map(find => (<p>{find.objectType}</p>)) : <p>no finds</p>}
+        {(this.state.finds.length > 0) ? this.state.finds.map(find => (<p key={find._id}>{find.objectType}</p>)) : <></>}
       </div>
     )
   }
