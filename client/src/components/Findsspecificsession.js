@@ -93,7 +93,7 @@ export default class Findsspecificsession extends Component {
       axios.put(`/api/locations/removeHunt/${this.props.match.params.id}`, { hunt: this.props.match.params.sessionId})
       .then(() => {
         this.props.onReload()
-        this.props.history.push(`/locations/${this.props.match.params.id}/allfinds`)
+        this.props.history.push(`/locations/${this.props.match.params.id}`)
       })
       .catch(err => {
         console.log(err)
@@ -132,17 +132,17 @@ export default class Findsspecificsession extends Component {
             <button type="submit">Add Find</button>
           </form>
 
-          {(this.state.finds.length > 0) ? 
+          {this.state.hunt._id !== undefined ? (this.state.finds.length > 0) ? 
 
             <div>
               {this.state.finds.map(find => (
-              <Link key={find._id}>
+              <Link key={find._id} to={`/finds/${find._id}`}>
               <p>{find.objectType}</p>
               <img style={{width:"200px"}} src={find.imageUrl} alt="find"></img>
               </Link>)) }
             </div>
 
-          : <button onClick={() => {this.removeSession()}}>Delete session</button>}
+          : <button onClick={() => {this.removeSession()}}>Delete session</button> : <></>}
 
         </div>
 

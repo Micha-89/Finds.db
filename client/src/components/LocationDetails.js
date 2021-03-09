@@ -14,7 +14,6 @@ export default class LocationDetails extends Component {
   }
 
   componentDidMount() {
-    this.props.history.push(`/locations/${this.props.match.params.id}/allfinds`)
     axios.get(`/api/locations/${this.props.match.params.id}`)
     .then(response => {
       this.setState({

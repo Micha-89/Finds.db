@@ -110,11 +110,11 @@ router.get('/hunts/:id', (req, res) => {
 
   Hunt.findById(req.params.id)
   .populate('finds')
-  .then(location => {
-    if (!location) {
-      res.status(404).json(location);
+  .then(hunt => {
+    if (!hunt) {
+      res.status(404).json(hunt);
     } else {
-      res.json(location)
+      res.json(hunt)
     }
   })
   .catch(err => {
@@ -176,6 +176,33 @@ router.get('/finds', (req, res) => {
   });
 
 });
+
+router.get('/finds/:id', (req, res) => {
+
+  Find.findById(req.params.id)
+  .then(find => {
+    if (!find) {
+      res.status(404).json(find);
+    } else {
+      res.json(find)
+    }
+  })
+  .catch(err => {
+    res.status(200).json(err)
+  })
+
+})
+
+router.put('/finds/:id', (req, res) => {
+  const { objectType, age, description, imageUrl } = req.body
+  Find.findByIdAndUpdate(req.params.id, { objectType, age, description, imageUrl })
+  .then(() => {
+    res.json({ message: `Find with ${req.params.id} is updated successfully.` });
+  })
+  .catch(error => {
+    res.json(error);
+  });
+})
 
 router.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
   if (!req.file) {

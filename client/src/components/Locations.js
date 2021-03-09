@@ -21,7 +21,7 @@ export default function Locations(props) {
     latitude: 51.048896,
     longitude: 3.629286,
     width: "100vw",
-    height: "93vh",
+    height: "91vh",
     zoom: 13
   })
 

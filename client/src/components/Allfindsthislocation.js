@@ -27,7 +27,7 @@ export default class Allfindsthislocation extends Component {
           <div style={{display:"flex", gap:"40px"}}>
             <div>
               {this.state.finds.filter(find => find.location._id === this.props.match.params.id).reverse().map(find => (
-              <Link key={find._id}>
+              <Link key={find._id} to={`/finds/${find._id}`}>
                 <p>{find.objectType}</p>
                 <img style={{width:"200px"}} src={find.imageUrl} alt="find"></img>
               </Link>

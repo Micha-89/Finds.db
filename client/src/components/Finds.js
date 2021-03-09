@@ -44,7 +44,7 @@ export default class Finds extends Component {
         </div>
         <div>
         {this.state.finds.length > 0 ? this.state.finds.filter(find => find.objectType.toLowerCase().includes(this.state.filter.toLocaleLowerCase()) || find.description.toLowerCase().includes(this.state.filter.toLocaleLowerCase())).map(find => (
-          <Link key={find._id}>
+          <Link key={find._id} to={`/finds/${find._id}`}>
             <p>{find.objectType}</p>
             <img style={{width:"200px"}} src={find.imageUrl} alt="find"></img>
           </Link>
