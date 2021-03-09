@@ -146,6 +146,17 @@ router.delete('/hunts/:id', (req, res, next) => {
 
 });
 
+router.put('/hunts/removeFind/:id', (req, res) => {
+  const { find } = req.body
+  Hunt.findByIdAndUpdate(req.params.id, {$pull: { finds: find } })
+  .then(() => {
+    res.json({ message: `Hunt with ${req.params.id} is updated successfully.` });
+  })
+  .catch(error => {
+    res.json(error);
+  });
+})
+
 router.post('/finds', (req, res) => {
   const { objectType, age, description, location, hunt, imageUrl } = req.body;
   Find.create({
@@ -203,6 +214,18 @@ router.put('/finds/:id', (req, res) => {
     res.json(error);
   });
 })
+
+router.delete('/finds/:id', (req, res, next) => {
+  
+  Find.findByIdAndDelete(req.params.id)
+  .then(() => {
+    res.status(200).json(console.log('hunt deleted'))
+  })
+  .catch(err => {
+    next(err)
+  })
+
+});
 
 router.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
   if (!req.file) {

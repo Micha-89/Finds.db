@@ -76,6 +76,22 @@ export default class FindsDetails extends Component {
 
   }
 
+  deleteFind = () => {
+    axios.delete(`/api/finds/${this.props.match.params.id}`)
+    .then(() => {
+      axios.put(`/api/hunts/removeFind/${this.state.find.hunt}`, { find: this.props.match.params.id})
+      .then(() => {
+        this.props.history.goBack()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   render() {
     return (
       <div>
@@ -91,7 +107,7 @@ export default class FindsDetails extends Component {
             <img src={this.state.find.imageUrl} alt="find"/>
             <br/>
             <button onClick={() => {this.setState({showEdit:true})}}>Edit</button>
-            <button>Delete</button>
+            <button onClick={this.deleteFind}>Delete</button>
             <button onClick={() => this.props.history.goBack()}>back</button>
           </div>
         ) : 
