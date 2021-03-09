@@ -1,0 +1,29 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #43c7beb0;
+}
+
+.appName {
+  margin-left: 60px;
+  font-size: 2.5em;
+  color: white;
+}
+
+.navLinksWrap {
+  display: flex;
+  align-items: center;
+  margin-right: 40px;
+  gap: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.navLink {
+  text-decoration: none;
+  color: white;
+}
+
+.navLink:hover {
+  opacity: 0.5;
+}

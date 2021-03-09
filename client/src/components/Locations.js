@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/locations.css'
 
 export default function Locations(props) {
 
@@ -20,8 +21,8 @@ export default function Locations(props) {
   const [viewport, setViewport] = useState({
     latitude: 51.048896,
     longitude: 3.629286,
-    width: "100vw",
-    height: "91vh",
+    width: "100%",
+    height: "89vh",
     zoom: 13
   })
 
@@ -117,10 +118,12 @@ export default function Locations(props) {
           longitude={newMarkerLocation.longitude}
           closeButton={false}
           >
-            <form className="addLocationPopUpForm" onSubmit={addLocation} style={{margin:"12px"}}>
-              <button type="submit">Add Location</button>
-            </form>
-            <button onClick={() =>setNewMarkerLocation({latitude: 0,longitude: 0})}>Close</button>
+            <div style={{margin:"12px"}}>
+              <form onSubmit={addLocation} >
+                <button className="addLocationButton" type="submit">Add Location</button>
+              </form>
+              <button className="closePopUpButton" onClick={() =>setNewMarkerLocation({latitude: 0,longitude: 0})}>Close</button>
+            </div>
           </Popup>
         ) : <></> }
 
@@ -131,13 +134,14 @@ export default function Locations(props) {
           closeButton={false}
           >
             <div style={{margin:"12px"}}>
-              <p>Sessions: {selectedMarker.hunts.length}</p>
-              <Link to={`/locations/${selectedMarker._id}`}>Sessions</Link>
+              <p style={{marginBottom:"22px"}}>Sessions: {selectedMarker.hunts.length}</p>
+              <Link className="locationLink" to={`/locations/${selectedMarker._id}`}>Location details</Link>
               {(selectedMarker.hunts.length === 0) ? 
-              <form className="locationPopUpForm" onSubmit={deleteLocation}>
-                <button type="submit">Delete location</button>
+              <form onSubmit={deleteLocation}>
+                <button className="closePopUpButton" type="submit">Delete location</button>
               </form> : <></>}
-              <button onClick={() =>setSelectedMarker(null)}>Close</button>
+              
+              <button className="closePopUpButton" onClick={() =>setSelectedMarker(null)}>Close</button>
             </div>
           </Popup>
         ) : <></> }

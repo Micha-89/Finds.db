@@ -1,0 +1,85 @@
+.markerButton {
+  width: 50px;
+  height: 54px;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  transform-origin: bottom;
+}
+
+.markerButton:hover{
+  cursor: pointer;
+  animation-name: bounce;
+  animation-timing-function: ease;
+}
+
+@keyframes bounce {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.closePopUpButton{
+  border-style: solid;
+  border-color: rgba(255,255,255,0);
+  background-color: rgba(255,255,255,0);
+  font-size: 14px;
+  padding: 0;
+  display: block;
+}
+
+.closePopUpButton.active.focus, .closePopUpButton.active:focus,
+.closePopUpButton.focus, .closePopUpButton:active.focus, 
+.closePopUpButton:active:focus, .closePopUpButton:focus {
+  outline: none;
+  box-shadow: none;
+  background-color: rgba(255,255,255,0);
+}
+
+.closePopUpButton:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.locationLink {
+  position: relative;
+  bottom: 12px;
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #43c7be;
+  padding: 8px;
+  -webkit-box-shadow: 4px 6px 10px -3px rgba(0,0,0,0.47); 
+  box-shadow: 4px 6px 10px -3px rgba(0,0,0,0.47);
+}
+
+.locationLink:hover {
+  bottom: 10px;
+}
+
+.addLocationButton {
+  position: relative;
+  bottom: 4px;
+  border-style: solid;
+  border-color: rgba(255,255,255,0);
+  background-color: rgba(255,255,255,0);
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #43c7be;
+  padding: 8px;
+  -webkit-box-shadow: 4px 6px 10px -3px rgba(0,0,0,0.47); 
+  box-shadow: 4px 6px 10px -3px rgba(0,0,0,0.47);
+}
+
+.addLocationButton.active.focus, .addLocationButton.active:focus,
+.addLocationButton.focus, .addLocationButton:active.focus, 
+.addLocationButton:active:focus, .addLocationButton:focus {
+  outline: none;
+}
+
+.addLocationButton:hover {
+  bottom: 2px;
+  cursor: pointer;
+}

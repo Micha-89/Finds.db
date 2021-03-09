@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { logout } from '../services/auth';
+import '../styles/navbar.css'
 
 const handleLogout = props => {
   logout().then(() => {
@@ -10,32 +11,32 @@ const handleLogout = props => {
 
 const Navbar = props => {
   return (
-    <div className='nav justify-content-end' bg='primary'>
-      {props.user && <div>Welcome, {props.user.username}</div>}
+    <div className='navbar'>
+      <h1 className='appName'>Finds.db</h1>
       {props.user ? (
-        <>
+        <div className='navLinksWrap'>
           <div>
-            <Link to='/finds'>Finds</Link>
+            <Link className='navLink' to='/finds'>Finds</Link>
           </div>
 
           <div>
-            <Link to='/locations'>Locations</Link>
+            <Link className='navLink' to='/locations'>Locations</Link>
           </div>
           <div>
-            <Link to='/' onClick={() => handleLogout(props)}>
+            <Link className='navLink' to='/' onClick={() => handleLogout(props)}>
               Logout
             </Link>
           </div>
-        </>
+        </div>
       ) : (
-          <>
+          <div className='navLinksWrap'>
             <div>
-              <Link to='/signup'>Signup</Link>
+              <Link className='navLink' to='/signup'>Signup</Link>
             </div>
             <div>
-              <Link to='/login'>Login</Link>
+              <Link className='navLink' to='/login'>Login</Link>
             </div>
-          </>
+          </div>
         )}
     </div>
   )

@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './styles/App.css';
 import { Route, Redirect } from 'react-router-dom';
 import Locations from './components/Locations';
 import LocationDetails from './components/LocationDetails'
