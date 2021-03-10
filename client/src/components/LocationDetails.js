@@ -12,7 +12,7 @@ export default class LocationDetails extends Component {
     longitude: '',
     latitude: ''
   }
-
+  
   componentDidMount() {
     axios.get(`/api/locations/${this.props.match.params.id}`)
     .then(response => {
@@ -83,7 +83,8 @@ export default class LocationDetails extends Component {
   render() {
     return (
       <div>
-        <h2>Longitude: {this.state.longitude} Latitude:{this.state.latitude}</h2>
+        <h2>Latitude: {this.state.latitude} Longitude: {this.state.longitude}
+        <img style={{width:"30px"}} src="/Edit-copy.svg" alt="" onClick={() => {navigator.clipboard.writeText(this.state.latitude + ',' + this.state.longitude)}}/> <a target="_blank" href={`http://maps.google.com/maps?q=${this.state.latitude},${this.state.longitude}`}>Look up in google maps</a></h2>
         <div style={{display:"flex", gap:"40px"}}>
           <div style={{display:"flex", flexDirection:"column", gap:"20px"}}>
             <div>

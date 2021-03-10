@@ -5,7 +5,9 @@ export default class Signup extends Component {
   state = {
     username: '',
     password: '',
-    message: ''
+    message: '',
+    longitude: '',
+    latitude: ''
   };
 
   handleChange = event => {
@@ -19,9 +21,9 @@ export default class Signup extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    const { username, password } = this.state;
+    const { username, password, longitude, latitude } = this.state;
 
-    signup(username, password).then(data => {
+    signup(username, password, longitude, latitude).then(data => {
       if (data.message) {
         this.setState({
           message: data.message,
@@ -59,6 +61,11 @@ export default class Signup extends Component {
               onChange={this.handleChange}
               id='password'
             />
+
+            <label htmlFor="longitude">Fill in latitude and longitude to center map</label>
+            <input type="number" name="latitude" id="latitude" placeholder="latitude" value={this.state.latitude} onChange={this.handleChange}/>
+            <input type="number" name="longitude" id="longitude" placeholder="longitude" value={this.state.longitude} onChange={this.handleChange}/>
+            
       
           {this.state.message && (
             <h2>{this.state.message}</h2>

@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 
 router.post('/signup', (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, longitude, latitude} = req.body;
 
   if (!password || password.length < 8) {
     return res
@@ -14,6 +14,10 @@ router.post('/signup', (req, res) => {
   }
   if (!username) {
     return res.status(400).json({ message: 'Your username cannot be empty' });
+  }
+
+  if(!longitude || !latitude) {
+    return res.status(400).json({ message: 'Please fill in longitude and latitude' });
   }
 
   User.findOne({ username: username })
@@ -27,7 +31,7 @@ router.post('/signup', (req, res) => {
       const salt = bcrypt.genSaltSync();
       const hash = bcrypt.hashSync(password, salt);
 
-      return User.create({ username: username, password: hash }).then(
+      return User.create({ username: username, password: hash, longitude, latitude}).then(
         dbUser => {
 
           req.login(dbUser, err => {

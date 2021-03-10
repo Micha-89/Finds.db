@@ -7,7 +7,9 @@ const userSchema = new Schema(
       type: String,
       unique: true
     },
-    password: String
+    password: String,
+    longitude: Number,
+    latitude: Number
   },
   {
     timestamps: true

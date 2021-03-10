@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const signup = (username, password) => {
-  return axios.post('/api/auth/signup', { username, password })
+const signup = (username, password, longitude, latitude) => {
+  
+  return axios.post('/api/auth/signup', { username, password, longitude, latitude })
     .then(response => {
       return response.data;
     })

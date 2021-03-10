@@ -19,8 +19,8 @@ export default function Locations(props) {
     }
 
   const [viewport, setViewport] = useState({
-    latitude: 51.048896,
-    longitude: 3.629286,
+    latitude: props.user.latitude,
+    longitude: props.user.longitude,
     width: "100%",
     height: "89vh",
     zoom: 13

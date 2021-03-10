@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Pie } from 'react-chartjs-2';
 
+
 export default class Findsspecificsession extends Component {
   state = {
     objectType: '',
@@ -53,6 +54,7 @@ export default class Findsspecificsession extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    if(this.state.imageUploaded === false || this.state.objectType === '') return console.log('please fill in all fields')
     axios.post('/api/finds', {
       objectType: this.state.objectType,
       description: this.state.description,
@@ -128,7 +130,7 @@ export default class Findsspecificsession extends Component {
             <textarea name="description" id="description" cols="30" rows="10" value={this.state.description} onChange={this.handleChange}></textarea>
             <label style={{backgroundColor:"grey", marginTop:"5px"}} htmlFor="imageUrl">Upload image</label>
             <input style={{display:"none"}} type="file"  id="imageUrl" name="imageUrl" value={this.state.fileInputValue} onChange={e => this.handleFileUpload(e)}/>
-            {this.state.imageUploaded ? <p>image uploaded</p> : <p>no image uploaded</p>}
+            {this.state.imageUploaded ? <p style={{backgroundColor:"#43c7bea3", padding:"10px"}}><img style={{width:"20px"}} src="/Check_green_icon.svg" alt="check icon"/> Image uploaded</p> : <p style={{backgroundColor:"#f1466896", padding:"10px"}}><img style={{width:"20px"}} src="/redIcon.png" alt="check icon"/> Please upload image!</p>}
             <button type="submit">Add Find</button>
           </form>
 
