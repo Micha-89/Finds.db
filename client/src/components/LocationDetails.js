@@ -3,6 +3,7 @@ import axios from 'axios';
 import Allfindsthislocation from '../components/Allfindsthislocation';
 import Findsspecificsession from '../components/Findsspecificsession';
 import { Route, Link, Switch } from 'react-router-dom';
+import '../styles/locationDetails.css'
 
 export default class LocationDetails extends Component {
 
@@ -59,6 +60,7 @@ export default class LocationDetails extends Component {
       finds: []
     })
     .then(response => {
+      this.props.history.push(`/locations/${this.props.match.params.id}/${response.data._id}`);
       axios.put(`/api/locations/${this.props.match.params.id}`, { hunt: response.data._id})
       .then(() => {
         axios.get(`/api/locations/${this.props.match.params.id}`)
@@ -82,23 +84,36 @@ export default class LocationDetails extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Latitude: {this.state.latitude} Longitude: {this.state.longitude}
-        <img style={{width:"30px"}} src="/Edit-copy.svg" alt="" onClick={() => {navigator.clipboard.writeText(this.state.latitude + ',' + this.state.longitude)}}/> <a target="_blank" href={`http://maps.google.com/maps?q=${this.state.latitude},${this.state.longitude}`}>Look up in google maps</a></h2>
+      <div onLoad={this.onloadParentComponent}>
+        <div className="latlongDetailSection">
+          <p><span>Latitude:</span> {this.state.latitude}</p>
+          <p><span>Longitude:</span> {this.state.longitude}</p>
+          <img className="copyIcon" src="/Edit-copy.svg" alt="" onClick={() => {navigator.clipboard.writeText(this.state.latitude + ',' + this.state.longitude)}}/> 
+          <a target="_blank" rel="noreferrer" href={`http://maps.google.com/maps?q=${this.state.latitude},${this.state.longitude}`} style={{fontSize:"16px"}}>Look up coordinates on google maps</a>
+        </div>
+        
         <div style={{display:"flex", gap:"40px"}}>
-          <div style={{display:"flex", flexDirection:"column", gap:"20px"}}>
+          <div className="sessionsListContainer">
             <div>
               <form onSubmit={this.handleSubmit}>
                 <input onChange={this.handleChangeDate} type="datetime-local" name="" id=""/>
-                <button type="submit">Add Session</button>
+                <button className="addSessionButton" type="submit">Add Session</button>
               </form>
             </div>
-            <Link to={`${this.props.match.url}/allfinds`}>All finds in this location</Link>
-            {this.state.hunts.length > 0 ? this.state.hunts.map(session => (<Link to={`${this.props.match.url}/${session._id}`} key={session._id}>Day: {session.date.split('T')[0].split('-').reverse().join('-')} Time: {session.date.split('T')[1]}</Link>)) : <p>No sessions yet</p>}
+
+            <div className="sessionsList">
+              {this.state.hunts.length > 0 ? <Link id="allfinds" className="sessionDetail" to={`${this.props.match.url}/allfinds`}>All finds in this location</Link> : <></>}
+              {this.state.hunts.length > 0 ? this.state.hunts.map(session => (<Link id={session._id} className="sessionDetail" to={`${this.props.match.url}/${session._id}`} key={session._id}>Day: {session.date.split('T')[0].split('-').reverse().join('-')} Time: {session.date.split('T')[1]}</Link>)) : <></>}
+            </div>
           </div>
           <Switch>
-            <Route path={`${this.props.match.path}/allfinds`} render={(props) => (<Allfindsthislocation {...props}/>)}/>
-            <Route path={`${this.props.match.path}/:sessionId`} render={(props) => (<Findsspecificsession  key={props.match.params.sessionId} {...props} onReload={() => {this.handleChildChange()}}/>)} />
+            <Route path={`${this.props.match.path}/allfinds`}  render={(props) => (<Allfindsthislocation {...props}/>)}/>
+            <Route path={`${this.props.match.path}/:sessionId`} render={(props) => (
+            <Findsspecificsession  
+            key={props.match.params.sessionId} 
+            {...props} 
+            onReload={() => {this.handleChildChange()}}/>
+            )} />
           </Switch>
         </div>
       </div>

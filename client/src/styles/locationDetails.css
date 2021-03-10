@@ -1,0 +1,107 @@
+.latlongDetailSection{
+  height: 7vh;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding-left: 20px;
+  font-size: 20px;
+  border-bottom: solid rgba(204, 198, 198, 0.377) 2px;
+}
+
+.latlongDetailSection span {
+  font-weight: bold;
+}
+
+.copyIcon {
+  width:30px;
+  position: relative;
+  margin-right: 5px;
+}
+
+.copyIcon:hover {
+  cursor: pointer;
+}
+
+.copyIcon:active {
+  width: 35px;
+  margin-right: 0;
+}
+
+.latlongDetailSection a {
+  text-decoration: none;
+  color: black;
+}
+
+.latlongDetailSection a:hover {
+  opacity: 0.5;
+}
+
+.sessionsListContainer {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  text-align: center;
+}
+
+.sessionsListContainer form {
+  margin: 20px 10px 10px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3vh;
+}
+
+.sessionsListContainer input {
+  font-size: 16px;
+}
+
+.addSessionButton {
+  margin-left: 8px;
+  position: relative;
+  border-style: solid;
+  border-color: rgba(255,255,255,0);
+  background-color: rgba(255,255,255,0);
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #43c7be;
+  padding: 4px 7px;
+  -webkit-box-shadow: 4px 6px 10px -3px rgba(0,0,0,0.47); 
+  box-shadow: 4px 6px 10px -3px rgba(0,0,0,0.47);
+}
+
+.addSessionButton.active.focus, .addSessionButton.active:focus,
+.addSessionButton.focus, .addSessionButton:active.focus, 
+.addSessionButton:active:focus, .addSessionButton:focus {
+  outline: none;
+}
+
+.addSessionButton:hover {
+  bottom: 2px;
+  cursor: pointer;
+}
+
+.sessionsList {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  text-align: center;
+  overflow: auto;
+  height: 73vh;
+  margin-top: 10px;
+}
+
+.sessionDetail {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  padding: 10px;
+  border: solid 2px rgba(204, 198, 198, 0.377);
+  margin: 8px 10px;
+}
+
+.sessionDetail:hover {
+  background-color: #43c7be38;
+}
+

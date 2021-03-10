@@ -1,0 +1,115 @@
+.findInput {
+  display:flex;
+  width:30vw;
+  flex-direction: column; 
+  align-items: flex-start;
+  gap:10px;
+  border-bottom: solid 2px rgba(204, 198, 198, 0.377);
+  padding-bottom: 15px;
+}
+
+.findInput label {
+  margin-bottom: 5px;
+}
+
+.imageUpload{
+  display:flex;
+  flex-direction: row;
+  gap:20px;
+  align-items: center;
+}
+
+.imageUploadLabel {
+  height: 40px;
+  background-color: rgb(199, 197, 197);
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+.imageUploadLabel p {
+  margin: 0;
+}
+
+.imageUploadLabel:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.imageWarning {
+  height: 40px;
+  margin: 0;
+  position: relative;
+  bottom: 3px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: default;
+}
+
+.findFormButton {
+  margin-right: 8px;
+  position: relative;
+  border-style: solid;
+  border-color: rgba(255,255,255,0);
+  background-color: rgba(255,255,255,0);
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #43c7be;
+  padding: 4px 7px;
+  -webkit-box-shadow: 4px 6px 10px -3px rgba(0,0,0,0.47); 
+  box-shadow: 4px 6px 10px -3px rgba(0,0,0,0.47);
+}
+
+.findFormButton.active.focus, .findFormButton.active:focus,
+.findFormButton.focus, .findFormButton:active.focus, 
+.findFormButton:active:focus, .findFormButton:focus {
+  outline: none;
+}
+
+.findFormButton:hover {
+  bottom: 2px;
+  cursor: pointer;
+}
+
+.findLinkWrapper{
+  margin: 15px 0;
+  display: flex;
+  flex-wrap: wrap;
+  width:30vw;
+  gap: 60px;
+  overflow: auto;
+  height: 46vh;
+}
+
+.findLink {
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden
+}
+
+.findLink img{
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+}
+
+.findLinkText {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-top: 20px;
+  background-color: rgba(204, 198, 198, 0.5);
+  opacity: 0;
+}
+
+.findLinkText:hover {
+  opacity: 1;
+}

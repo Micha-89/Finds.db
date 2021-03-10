@@ -1,0 +1,38 @@
+.findLinkWrapperAll{
+  margin: 15px 0;
+  display: flex;
+  flex-wrap: wrap;
+  width:30vw;
+  gap: 60px;
+  overflow: auto;
+  height: 78vh;
+}
+
+.findLink {
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden
+}
+
+.findLink img{
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+}
+
+.findLinkText {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-top: 20px;
+  background-color: rgba(204, 198, 198, 0.5);
+  opacity: 0;
+}
+
+.findLinkText:hover {
+  opacity: 1;
+}
