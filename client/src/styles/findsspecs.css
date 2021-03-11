@@ -1,6 +1,6 @@
 .findInput {
   display:flex;
-  width:30vw;
+  width:26vw;
   flex-direction: column; 
   align-items: flex-start;
   gap:10px;
@@ -79,10 +79,11 @@
   margin: 15px 0;
   display: flex;
   flex-wrap: wrap;
-  width:30vw;
+  width:26vw;
   gap: 60px;
   overflow: auto;
   height: 46vh;
+  align-content: flex-start;
 }
 
 .findLink {

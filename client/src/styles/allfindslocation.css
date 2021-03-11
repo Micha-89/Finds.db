@@ -2,10 +2,11 @@
   margin: 15px 0;
   display: flex;
   flex-wrap: wrap;
-  width:30vw;
+  width:26vw;
   gap: 60px;
   overflow: auto;
   height: 78vh;
+  align-content: flex-start;
 }
 
 .findLink {
