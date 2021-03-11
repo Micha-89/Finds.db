@@ -16,14 +16,15 @@ const Navbar = props => {
       {props.user ? (
         <div className='navLinksWrap'>
           <div>
+            <Link className='navLink' to='/locations'>Locations</Link>
+          </div>
+
+          <div>
             <Link className='navLink' to='/finds'>Finds</Link>
           </div>
 
           <div>
-            <Link className='navLink' to='/locations'>Locations</Link>
-          </div>
-          <div>
-            <Link className='navLink' to='/' onClick={() => handleLogout(props)}>
+            <Link className='navLink' to='/login' onClick={() => handleLogout(props)}>
               Logout
             </Link>
           </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import '../styles/allfinds.css'
 
 export default class Finds extends Component {
   state = {
@@ -30,8 +31,8 @@ export default class Finds extends Component {
 
   render() {
     return (
-      <div>
-        <div>
+      <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+        <div className="filterSection">
           <input type="text" name="filter" value={this.state.filter} onChange={this.changeHandler}/>
           <select name="age" value={this.state.age} onChange={this.changeHandler}>
             <option value="all">all</option>
@@ -46,13 +47,17 @@ export default class Finds extends Component {
             <option value="modern">modern</option>
           </select>
         </div>
-        <div>
-        {this.state.finds.length > 0 ? this.state.finds.filter(find => find.objectType.toLowerCase().includes(this.state.filter.toLocaleLowerCase()) || find.description.toLowerCase().includes(this.state.filter.toLocaleLowerCase())).filter(find => find.age === this.state.age || this.state.age === 'all').map(find => (
-          <Link key={find._id} to={`/finds/${find._id}`}>
-            <p>{find.objectType}</p>
-            <img style={{width:"200px"}} src={find.imageUrl} alt="find"></img>
-          </Link>
-        )) : <></>}
+
+        <div className="allfindLinkWrapper">
+          {this.state.finds.length > 0 ? this.state.finds.filter(find => find.objectType.toLowerCase().includes(this.state.filter.toLocaleLowerCase()) || find.description.toLowerCase().includes(this.state.filter.toLocaleLowerCase())).filter(find => find.age === this.state.age || this.state.age === 'all').map(find => (
+            <Link className="allfindLink" key={find._id} to={`/finds/${find._id}`}>
+                <div className="allfindLinkText">
+                  <p style={{fontSize:"22px", fontWeight:"bold"}}>{find.objectType}</p>
+                  <p style={{fontSize:"20px"}}>{find.age}</p>
+                </div>
+              <img style={{width:"200px"}} src={find.imageUrl} alt="find"></img>
+            </Link>
+          )) : <></>}
         </div>
       </div>
     )

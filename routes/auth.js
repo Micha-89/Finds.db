@@ -7,25 +7,30 @@ const passport = require('passport');
 router.post('/signup', (req, res) => {
   const { username, password, longitude, latitude} = req.body;
 
-  if (!password || password.length < 8) {
-    return res
-      .status(400)
-      .json({ message: 'Your password must be 8 char. min.' });
-  }
   if (!username) {
     return res.status(400).json({ message: 'Your username cannot be empty' });
   }
 
+  if (!password) {
+    return res
+      .status(400)
+      .json({ message: 'Your password cannot be empty' });
+  }
+
+  if (password.length < 8) {
+    return res
+      .status(400)
+      .json({ message: 'Your password must be 8 char. min.' });
+  }
+
   if(!longitude || !latitude) {
-    return res.status(400).json({ message: 'Please fill in longitude and latitude' });
+    return res.status(400).json({ message: 'Please fill in latitude and longitude' });
   }
 
   User.findOne({ username: username })
     .then(found => {
       if (found) {
-        return res
-          .status(400)
-          .json({ message: 'This username is already taken' });
+        return res.status(400).json({ message: 'This username is already taken' });
       }
 
       const salt = bcrypt.genSaltSync();

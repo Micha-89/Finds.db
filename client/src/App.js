@@ -21,32 +21,24 @@ class App extends React.Component {
     })
   }
 
+  componentDidMount = () => {
+
+  }
+
   render() {
     return (
       <div className='App' >
         <Navbar user={this.state.user} setUser={this.setUser} />
 
-        <Route
-          exact path='/finds'
-          render={props => {
-            if (this.state.user) return <Finds user={this.state.user} {...props}/>
-            else return <Redirect to='/' />
-          }}
-        />
-
-        <Route
-          exact path='/finds/:id'
-          render={props => {
-            if (this.state.user) return <Findsdetails {...props}/>
-            else return <Redirect to='/' />
-          }}
-        />
+        <Route exact path="/">
+          <Redirect to="/locations" />
+        </Route>
 
         <Route
           exact path='/locations'
           render={props => {
             if (this.state.user) return <Locations user={this.state.user} {...props}/>
-            else return <Redirect to='/' />
+            else return <Redirect to='/login' />
           }}
         />
 
@@ -54,7 +46,23 @@ class App extends React.Component {
           path='/locations/:id'
           render={props => {
             if (this.state.user) return <LocationDetails {...props}/>
-            else return <Redirect to='/' />
+            else return <Redirect to='/login' />
+          }}
+        />
+
+        <Route
+          exact path='/finds'
+          render={props => {
+            if (this.state.user) return <Finds user={this.state.user} {...props}/>
+            else return <Redirect to='/login' />
+          }}
+        />
+
+        <Route
+          exact path='/finds/:id'
+          render={props => {
+            if (this.state.user) return <Findsdetails {...props}/>
+            else return <Redirect to='/login' />
           }}
         />
 
@@ -63,6 +71,7 @@ class App extends React.Component {
           path='/signup'
           render={props => <Signup setUser={this.setUser} {...props} />}
         />
+        
         <Route
           exact
           path='/login'

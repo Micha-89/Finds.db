@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import '../styles/finddetails.css'
 
 export default class FindsDetails extends Component {
 
@@ -97,45 +98,49 @@ export default class FindsDetails extends Component {
       <div>
         
         {this.state.age !== '' ? !this.state.showEdit ? (
-          <div>
-            <label style={{fontWeight:"bold"}}>Type:</label>
-            <p>{this.state.find.objectType}</p>
-            <label style={{fontWeight:"bold"}}>Period:</label>
-            <p>{this.state.find.age}</p>
-            <label style={{fontWeight:"bold"}}>Description:</label>
-            <p>{this.state.find.description}</p>
+          <div className="findDetailWrapper">
+            <div style={{width:"20vw"}}>
+              <label className="findDetailLabel">Type</label>
+              <p>{this.state.find.objectType}</p>
+              <label className="findDetailLabel">Period</label>
+              <p>{this.state.find.age}</p>
+              <label className="findDetailLabel">Description</label>
+              <p>{this.state.find.description === '' ? "No description" : this.state.description}</p>
+              <button className="locationDetailButton" onClick={() => {this.setState({showEdit:true})}}>Edit</button>
+              <button className="locationDetailButton" onClick={this.deleteFind}>Delete</button>
+              <button className="locationDetailButton" onClick={() => this.props.history.goBack()}>back</button>
+            </div>
             <img src={this.state.find.imageUrl} alt="find"/>
-            <br/>
-            <button onClick={() => {this.setState({showEdit:true})}}>Edit</button>
-            <button onClick={this.deleteFind}>Delete</button>
-            <button onClick={() => this.props.history.goBack()}>back</button>
           </div>
         ) : 
         (
           <div>
-            <form onSubmit={this.handleSubmit} style={{display:"flex", flexDirection:"column", alignItems:"flex-start", gap:"10px"}}>
-              <label style={{fontWeight:"bold"}}>Type:</label>
-              <input type="text" name="objectType" value={this.state.objectType} onChange={this.handleChange}/>
-              <label style={{fontWeight:"bold"}}>Period:</label>
-              <select name="age" id="age" value={this.state.age} onChange={this.handleChange}>
-                <option value="uncertain">uncertain</option>
-                <option value="stone age">stone age</option>
-                <option value="bronze age">bronze age</option>
-                <option value="iron age">iron age</option>
-                <option value="roman">roman</option>
-                <option value="early medieval">early medieval</option>
-                <option value="medieval">medieval</option>
-                <option value="post medieval">post medieval</option>
-                <option value="modern">modern</option>
-              </select>
-              <label style={{fontWeight:"bold"}}>Description:</label>
-              <textarea name="description" id="" cols="30" rows="10" value={this.state.description}  onChange={this.handleChange}></textarea>
-              <input type="file" onChange={e => this.handleFileUpload(e)}/>
-              <img src={this.state.imageUrl} alt="find"/>
-              <br/>
-              <button type="submit">Submit</button>
-            </form>
-            <button onClick={this.cancelEdit}>Cancel</button>
+            <div className="findDetailWrapper">
+              <form onSubmit={this.handleSubmit} style={{display:"flex", flexDirection:"column", alignItems:"flex-start", gap:"10px", width:"20vw"}}>
+                <label className="findDetailLabel">Type</label>
+                <input type="text" name="objectType" value={this.state.objectType} onChange={this.handleChange}/>
+                <label className="findDetailLabel">Period</label>
+                <select name="age" id="age" value={this.state.age} onChange={this.handleChange}>
+                  <option value="uncertain">uncertain</option>
+                  <option value="stone age">stone age</option>
+                  <option value="bronze age">bronze age</option>
+                  <option value="iron age">iron age</option>
+                  <option value="roman">roman</option>
+                  <option value="early medieval">early medieval</option>
+                  <option value="medieval">medieval</option>
+                  <option value="post medieval">post medieval</option>
+                  <option value="modern">modern</option>
+                </select>
+                <label className="findDetailLabel">Description</label>
+                <textarea name="description" id="" cols="21" rows="1" value={this.state.description}  onChange={this.handleChange}></textarea>
+                <input type="file" onChange={e => this.handleFileUpload(e)}/>
+                <div>
+                  <button className="locationDetailButton" type="submit">Submit</button>
+                  <button className="locationDetailButton" onClick={this.cancelEdit}>Cancel</button>
+                </div>
+                </form>
+                <img src={this.state.imageUrl} alt="find"/>
+            </div>
           </div>
         ) : <></>}
         

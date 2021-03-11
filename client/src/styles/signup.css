@@ -1,0 +1,57 @@
+.imageDiv {
+  width:50vw;
+  height: 89vh;
+  background-image: url(https://res.cloudinary.com/dc5skapdx/image/upload/v1615466446/metaldetecting_ex9r05.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.signUpFormWrap {
+  width: 50vw;
+}
+
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 22px;
+  padding: 80px;
+}
+
+.signUpForm h2{
+ margin-bottom: 14px;
+}
+
+.signUpForm input {
+  font-size: 22px;
+  margin-right: 10px;
+}
+
+.signUpButton {
+  margin-top: 10px;
+  position: relative;
+  border-style: solid;
+  border-color: rgba(255,255,255,0);
+  background-color: rgba(255,255,255,0);
+  color: white;
+  font-size: 22px;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #43c7be;
+  padding: 4px 10px;
+  -webkit-box-shadow: 4px 6px 10px -3px rgba(0,0,0,0.47); 
+  box-shadow: 4px 6px 10px -3px rgba(0,0,0,0.47);
+}
+
+.signUpButton.active.focus, .signUpButton.active:focus,
+.signUpButton.focus, .signUpButton:active.focus, 
+.signUpButton:active:focus, .signUpButton:focus {
+  outline: none;
+}
+
+.signUpButton:hover {
+  bottom: 2px;
+  cursor: pointer;
+}

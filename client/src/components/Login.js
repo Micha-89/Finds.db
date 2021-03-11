@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { login } from '../services/auth';
+import '../styles/login.css'
 
 export default class Login extends Component {
   state = {
@@ -39,11 +40,15 @@ export default class Login extends Component {
 
   render() {
     return (
-      <>
-        <h2>Login</h2>
-        <form onSubmit={this.handleSubmit}>
-          
-            <label htmlFor='username'>Username: </label>
+    <div style={{display:"flex"}}>
+      <div className="imageDivLogin">
+
+      </div>
+
+      <div  className="loginFormWrap">
+        <form onSubmit={this.handleSubmit} className="loginForm">
+            <h2>Login</h2>
+            <label htmlFor='username'>Username</label>
             <input
               type='text'
               name='username'
@@ -51,9 +56,9 @@ export default class Login extends Component {
               onChange={this.handleChange}
               id='username'
             />
-       
+      
           
-            <label htmlFor='password'>Password: </label>
+            <label htmlFor='password'>Password</label>
             <input
               type='password'
               name='password'
@@ -62,12 +67,17 @@ export default class Login extends Component {
               id='password'
             />
         
+          <button type='submit' className="loginButton">Login</button>
+
           {this.state.message && (
-            <h2>{this.state.message}</h2>
+            <h4>{this.state.message}</h4>
           )}
-          <button type='submit'>Login</button>
+          
         </form>
-      </>
+      </div>
+
+    </div>
     );
   }
 }
+
