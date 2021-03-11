@@ -13,7 +13,6 @@ export default class Finds extends Component {
   componentDidMount = () => {
     axios.get('/api/finds')
     .then(response => {
-      console.log(response.data)
       const filteredArr = response.data.filter(find => find.location.owner === this.props.user._id).reverse()
       this.setState({
         finds: filteredArr
