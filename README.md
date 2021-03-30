@@ -16,8 +16,9 @@ This version is not mobile responsive.
 
 ### Take a closer look
 
-Youtube video:
+Youtube video (2:10 min):
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/xbvWS05uRoI/0.jpg)](https://www.youtube.com/watch?v=xbvWS05uRoI)
+
 
 You can view the website [here](https://finds-db.herokuapp.com/). (demo login: demo_1 ; password: demo8585)
