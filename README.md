@@ -10,6 +10,8 @@ I used Passport for the sign-up and login, Axios for the API requests, Cloudinar
 
 ### Take a closer look
 
+Youtube video:
+
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/xbvWS05uRoI/0.jpg)](https://www.youtube.com/watch?v=xbvWS05uRoI)
 
 You can view the website [here](https://finds-db.herokuapp.com/). (demo login: demo_1 ; password: demo8585)
