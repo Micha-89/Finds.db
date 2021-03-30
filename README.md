@@ -5,7 +5,8 @@ Metal detecting, and searching for stone age artifacts have become more and more
 ### Which stack and tools?
 
 This is a full-stack application with CRUD functionality for 3 models. 
-I built this using the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS).</br>
+I built this using the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS).
+
 I used Passport for the sign-up and login, Axios for the API requests, Cloudinary for the picture upload, Mapbox-react-gl to use the Mapbox API, and React-chartjs-2 for the charts.
 
 ### Take a closer look
