@@ -9,6 +9,11 @@ I built this using the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS).
 
 I used Passport for the sign-up and login, Axios for the API requests, Cloudinary for the picture upload, Mapbox-react-gl to use the Mapbox API, and React-chartjs-2 for the charts.
 
+### What needs to be improved?
+
+The website was developed for google Chrome and uses flexbox gap which is not supported by some browsers like Safari. 
+This version is not mobile responsive.
+
 ### Take a closer look
 
 Youtube video:
